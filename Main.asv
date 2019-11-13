@@ -21,4 +21,4 @@ U = Velocity(N,yoff,lam_u);
 %% Stretch the Grid
 
 
-[U_ref, y] = gridstretch(U,x,1e-2);
+U_ref = gridstretch(U,x,1e-2);

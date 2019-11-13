@@ -1,38 +1,14 @@
-clear all; close all;
+function [y_adapt, x_adapt] = gridstretch(y_in,x,tol)
 
-
-%% Test function
-
-r = 0.08; % Step
-x = -1:r:1;
 n = size(x);
-y = 0.5*(1+tanh(x));
-
-figure(1)
-plot(x,y) ;
-hold on;
-
-for i=1:n(2)
- plot([x(i),x(i)],[0, y(i)]);
- plot([-1,x(i)],[y(i), y(i)]);
-end
-
-
-figure(2)
-
-ydiff1 = gradient(y);
-
-plot(x,ydiff1,'-*')
-
-
+r = diff(x);
 %% Grid refinement
 
-tol = 1e-2;
-
+ydiff1 = gradient(y_in);
 % Interpolate to half grid spacing
 
-x_half = -1:r/2:1;
-y_half = interp1(x,y,x_half,'spline');
+x_half = min(x):r(1,1)/2:max(x);
+y_half = interp1(x,y_in,x_half,'spline');
 
 % Find new half-grid gradient
 
@@ -70,21 +46,4 @@ end
 
 x_adapt = horzcat([x_adapt x(1,end)]);
 y_adapt = interp1(x,y,x_adapt,'spline');
-
-figure(3)
-
-plot(x_adapt,y_adapt,'-*')
-hold on;
-
-plot(x,y,'-d')
-
-
-figure(4)
-
-plot(x_adapt,y_adapt) ;
-hold on;
-n2 = size(x_adapt,2);
-for i=1:n2
- plot([x_adapt(i),x_adapt(i)],[0, y_adapt(i)]);
- plot([-1,x_adapt(i)],[y_adapt(i), y_adapt(i)]);
 end
