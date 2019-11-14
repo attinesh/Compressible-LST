@@ -1,10 +1,14 @@
-function U = Velocity(N,yoff,lam)
+function [U1,U2,x1,x2] = Velocity(N,yoff,lam)
 
-U = zeros(N,1);
+
+U1 = zeros(N,1);
+U2 = zeros(N,1);
 h = yoff/(N-1);
 
 for i = 1:N
-    U(i,1) = (1 + lam*tanh(yoff-((i-1)*h)));
+    x1(i,1) = yoff-((i-1)*h);
+    U1(i,1) = (1 + lam*tanh(yoff-((i-1)*h)));
+    x2(i,1) = -yoff+((i-1)*h);
+    U2(i,1) = (1 + lam*tanh(-yoff+((i-1)*h)));
 end
-
 end
