@@ -6,8 +6,8 @@ clear all; close all;
 r = 0.08; % Step
 x = -2:r:2;
 n = size(x);
-y = 0.5*(1+tanh(x));
-
+% y = 0.5*(1+tanh(x));
+y = 1+ exp(-(x).^2);
 figure(1)
 plot(x,y) ;
 hold on;
